@@ -22,8 +22,8 @@ class HelperCryptService implements HelperCryptServiceInterface
     public static function encrypt(string $plaintext, $key = '')
     {
         list($key, $method) = [config('helper.crypt.key'), config('helper.crypt.method', 'aes-128-ecb')];
-        $key       = substr(openssl_digest(openssl_digest($key, 'sha1', true), 'sha1', true), 0, 16);
-        $cipherRaw = openssl_encrypt($plaintext, $method, $key, OPENSSL_RAW_DATA);
+        $key                = substr(openssl_digest(openssl_digest($key, 'sha1', true), 'sha1', true), 0, 16);
+        $cipherRaw          = openssl_encrypt($plaintext, $method, $key, OPENSSL_RAW_DATA);
 
         return self::urlsafe_b64encode($cipherRaw);
     }

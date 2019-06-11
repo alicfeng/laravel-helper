@@ -9,6 +9,7 @@
 
 namespace AlicFeng\Helper\Service;
 
+use AlicFeng\Helper\Helper\ResponseHelper;
 use AlicFeng\Helper\Helper\ResponseHelper as RspHelper;
 
 /**
@@ -20,9 +21,9 @@ class BaseHelperService
 {
     private $responseHelper;
 
-    public function __construct(RspHelper $responseHelper)
+    public function __construct()
     {
-        $this->responseHelper = $responseHelper;
+        $this->responseHelper = app()->make(ResponseHelper::class);
     }
 
     /**
