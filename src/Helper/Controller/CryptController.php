@@ -44,7 +44,7 @@ class CryptController extends BaseHelperController
      */
     public function decrypt(Request $request)
     {
-        $message = $this->safeFilter($request->post('content'));
+        $message = $this->safeFilter($request->query->get('content'));
 
         return $this->_cryptService->decrypt($message);
     }

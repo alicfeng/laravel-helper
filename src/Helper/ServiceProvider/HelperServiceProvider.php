@@ -24,12 +24,12 @@ class HelperServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../../../config/helper.php', 'helper');
+        $this->mergeConfigFrom(__DIR__ . '/../../../config/helper.php', 'helper');
     }
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../../../resources/views', 'helper');
+        $this->loadViewsFrom(__DIR__ . '/../../../resources/views', 'helper');
         $this->publishConfig();
         $this->registerRoute();
     }
@@ -38,10 +38,10 @@ class HelperServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                __DIR__.'/../../../config/helper.php' => config_path('helper.php'),
-                __DIR__.'/../../../resources/views'   => resource_path('views/helper'),
-                __DIR__.'/../../../resources/js'      => public_path('js/helper'),
-                __DIR__.'/../../../resources/css'     => public_path('css/helper'),
+                __DIR__ . '/../../../config/helper.php' => config_path('helper.php'),
+                __DIR__ . '/../../../resources/views'   => resource_path('views/helper'),
+                __DIR__ . '/../../../resources/js'      => public_path('js/helper'),
+                __DIR__ . '/../../../resources/css'     => public_path('css/helper'),
             ],
             'samego-helper'
         );
