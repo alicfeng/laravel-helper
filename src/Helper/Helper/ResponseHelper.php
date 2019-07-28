@@ -16,21 +16,79 @@ use Spatie\ArrayToXml\ArrayToXml;
 
 class ResponseHelper
 {
-    // package structure format supported including json and xml
-    const FORMAT_JSON = 'json';
-    const FORMAT_XML  = 'xml';
+    /**
+     * package structure format supported including json and xml.
+     */
+    const FORMATS = ['json', 'xml'];
 
-    // about http message | status_code( default 200 ) and header message
+    /**
+     * http status code.
+     *
+     * @var int
+     */
     protected $status_code = 200;
-    protected $headers     = [];
 
-    // package value [code,message,data]
-    protected $code    = null;
+    /**
+     * http response headers.
+     *
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
+     * package structure code dom.
+     *
+     * @var null
+     */
+    protected $code = null;
+
+    /**
+     * package structure message dom.
+     *
+     * @var null
+     */
     protected $message = null;
-    protected $data    = null;
+
+    /**
+     * package structure data dom.
+     *
+     * @var null
+     */
+    protected $data = null;
+
+    /**
+     * package structure format
+     * default json format.
+     *
+     * @var string
+     */
+    protected $format = 'json';
+
+    /**
+     * http response.
+     *
+     * @var string
+     */
+    private $response = '';
 
     // plugin setting including log flag
+    /**
+     * response log flag
+     * if true that printer log message
+     * by using laravel Log.
+     *
+     * @var bool
+     */
     protected $log = true;
+
+    /**
+     * log level
+     * setting by helper configuration file or log function
+     * default notice level.
+     *
+     * @var string
+     */
+    protected $log_level = 'notice';
 
     /**
      * @functionName set http header
@@ -48,8 +106,8 @@ class ResponseHelper
     }
 
     /**
-     * @functionName set data
-     * @description  setting data of package dom
+     * @function     set data
+     * @description  setting package.data dom value
      *
      * @param mixed $data data of package
      *
@@ -63,12 +121,12 @@ class ResponseHelper
     }
 
     /**
-     * @functionName set codeEnum
-     * @description  setting code and message of package dom
+     * @function    setCodeEnum
+     * @description setting package.code and package.message
      *
-     * @param array $codeEnum code and message
+     * @param array $codeEnum [code,message]
      *
-     * @return $this
+     * @return self $this
      */
     private function setCodeEnum(array $codeEnum)
     {
@@ -79,10 +137,10 @@ class ResponseHelper
     }
 
     /**
-     * @functionName set statusCode
-     * @description  setting http status code
+     * @function    setting status code
+     * @description setting http.status_code
      *
-     * @param mixed $status_code http status code
+     * @param int $status_code
      *
      * @return $this
      */
@@ -94,40 +152,12 @@ class ResponseHelper
     }
 
     /**
-     * @functionName set log flag
-     * @description  set log flag for log::notice
-     *
-     * @param mixed $flag log flag
-     *
-     * @return $this
-     */
-    private function setLogFlag(bool $flag)
-    {
-        $this->log = $flag;
-
-        return $this;
-    }
-
-    /**
-     * @functionName print log
-     * @description  print response package log
-     *
-     * @param string $package package message
-     */
-    private function printLog($package)
-    {
-        Log::notice($package);
-    }
-
-    /**
-     * @functionName   generate unified structure package
-     * @description    generate unified structure package
-     *
-     * @param string $format structure format
+     * @function    generate the response
+     * @description generate response package message
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    private function generate(string $format = self::FORMAT_JSON)
+    private function generate()
     {
         $structure = config('helper.package.structure', []);
 
@@ -140,59 +170,103 @@ class ResponseHelper
         if ($this->data instanceof Arrayable) {
             $package[Arr::get($structure, 'data', 'data')] = $this->data->toArray();
         }
-        $package = call_user_func([self::class, $format], $package);
+
+        $this->response = call_user_func([self::class, $this->format . 'Format'], $package);
+
+        unset($package, $structure);
 
         if ($this->log) {
-            $this->printLog($package);
+            call_user_func([Log::class, $this->log_level], $this->response);
         }
 
-        return response($package, $this->status_code, $this->headers);
+        return response($this->response, $this->status_code, $this->headers);
     }
 
     /**
-     * @functionName   array2json
-     * @description    array to json format
+     * @function    jsonFormat
+     * @description generate the response to json string
      *
      * @param array $message
      *
-     * @return string
+     * @return false|string
      */
-    private static function json(array $message)
+    private static function jsonFormat(array $message)
     {
         return json_encode($message, JSON_UNESCAPED_UNICODE);
     }
 
     /**
-     * @functionName   array2xml
-     * @description    array to xml format
+     * @function    xmlFormat
+     * @description generate the response to xml string
      *
      * @param array $message
      *
      * @return string
      */
-    private static function xml(array $message)
+    private static function xmlFormat(array $message)
     {
         return ArrayToXml::convert($message, 'root');
     }
 
     /**
-     * @functionName   Service Handler Result
-     * @description    在此统一构建业务处理的结果报文结构体，
-     * 每一个需要需要返回结果的Service尽量继承BaseService，
-     * Developers care about the return value
+     * @function    json
+     * @description setting format to json
      *
-     * @param array  $codeEnum    Code Array | [ code, message ]
-     * @param mixed  $data        data
-     * @param bool   $log         printer log
-     * @param string $format      structure format
-     * @param int    $status_code http status code | default is 200
-     * @param array  $headers     https headers | default []
+     * @return $this
+     */
+    public function json()
+    {
+        $this->format = self::FORMATS[0];
+
+        return $this;
+    }
+
+    /**
+     * @function    xml
+     * @description setting format to xml
      *
-     * @return string response message
+     * @return $this
+     */
+    public function xml()
+    {
+        $this->format = self::FORMATS[1];
+
+        return $this;
+    }
+
+    /**
+     * @function    log
+     * @description setting log configuration
+     *
+     * @param bool $flag
+     * @param null $level
+     *
+     * @return self $this
+     */
+    public function log(bool $flag, $level = null)
+    {
+        $this->log = $flag;
+
+        if (null === $level) {
+            $this->log_level = config('helper.package.log_level', 'notice');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @function    generate the response result
+     * @description generate the response result
+     *
+     * @param array  $codeEnum    package[code,message]
+     * @param string $data        package.data
+     * @param int    $status_code http.status_code
+     * @param array  $headers     http.headers
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function result(
         array $codeEnum, $data = '',
-        bool $log = true, $format = self::FORMAT_JSON,
         int $status_code = 200, array $headers = []
     ) {
         return $this
@@ -200,18 +274,17 @@ class ResponseHelper
             ->setHeaders($headers)
             ->setCodeEnum($codeEnum)
             ->setData($data)
-            ->setLogFlag($log)
-            ->generate($format);
+            ->generate();
     }
 
     /**
-     * @functionName noContent
-     * @description  response nothing content
+     * @function    response nothing
+     * @description Respond with a no content response.
      *
-     * @param int   $status_code http code | default 204
-     * @param array $headers     http headers message
+     * @param int   $status_code
+     * @param array $headers
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function noContent($status_code = 204, $headers = [])
     {

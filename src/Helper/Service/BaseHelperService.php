@@ -12,10 +12,19 @@ namespace AlicFeng\Helper\Service;
 use AlicFeng\Helper\Helper\ResponseHelper;
 
 /**
-  * Service Base Class
-  * All Service Class Extends This For Unit Result
-  * Class BaseService.
-  */
- class BaseHelperService extends ResponseHelper
- {
- }
+ * Service Base Class
+ * All Service Class Extends This For Unit Result
+ * Class BaseService.
+ */
+class BaseHelperService
+{
+    /**
+     * @var ResponseHelper
+     */
+    public $rspHelper;
+
+    public function __construct()
+    {
+        $this->rspHelper = app()->make(ResponseHelper::class);
+    }
+}

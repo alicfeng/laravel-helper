@@ -20,6 +20,9 @@ return [
             'method'   => 'aes-128-ecb',
             'password' => '1234qwer',
         ],
+
+        // log level
+        'log_level' => 'notice'
     ],
 
     // debug model setting

@@ -21,12 +21,12 @@ class CryptHelperService extends BaseHelperService
         try {
             $result = call_user_func([config('helper.package.crypt.instance'), 'decrypt'], $message);
             if ($result) {
-                return $this->result(self::SUCCESS, json_decode($result, JSON_UNESCAPED_UNICODE), false, 0, 200, []);
+                return $this->rspHelper->result(self::SUCCESS, json_decode($result, JSON_UNESCAPED_UNICODE), 200, []);
             }
         } catch (\Exception $exception) {
             Log::error($exception);
         }
 
-        return $this->result(self::FAIL, '', false, 0, 200, []);
+        return $this->rspHelper->result(self::FAIL, '', 200, []);
     }
 }
