@@ -205,6 +205,8 @@ class ResponseHelper
      */
     private static function xmlFormat(array $message)
     {
+        $message = json_decode(json_encode($message), true);
+
         return ArrayToXml::convert($message, 'root');
     }
 

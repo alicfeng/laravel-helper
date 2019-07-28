@@ -1,21 +1,25 @@
 <?php
-/**
- * Created by AlicFeng at 2019-07-28 11:54
+
+/*
+ * What samego team is that is 'one thing, a team, work together'
+ * Value comes from technology, technology comes from sharing~
+ * https://github.com/alicfeng/laravel-helper
+ * AlicFeng | a@samego.com
  */
 
 namespace AlicFeng\Helper\Helper;
-
 
 class DateTimeHelper
 {
     /**
      * @function    msectime
      * @description return current Unix timestamp with microseconds
-     * @return integer
+     *
+     * @return int
      */
     public static function msectime()
     {
-        return (int)(microtime(true) * 1000);
+        return (int) (microtime(true) * 1000);
     }
 
     public function __call($name, $arguments)
