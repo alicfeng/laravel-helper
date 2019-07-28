@@ -19,7 +19,7 @@ To install through composer, simply put the following in your `composer.json` fi
 ```json
 {
     "require": {
-        "alicfeng/laravel-helper": "^1.0.0"
+        "alicfeng/laravel-helper": "^1..0"
     }
 }
 ```
@@ -33,7 +33,7 @@ And then run `composer install` from the terminal.
 Above installation can also be simplify by using the following command:
 
 ```shell
-composer require  "alicfeng/laravel-helper=^1.0.0" -vvv
+composer require  "alicfeng/laravel-helper=^1.1.0" -vvv
 ```
 
 
@@ -57,6 +57,8 @@ composer require  "alicfeng/laravel-helper=^1.0.0" -vvv
   
 
 #### Usage
+
+###### ResponseHelper
 
 - Generate Unified Structure Package Following RESTful
 
@@ -83,10 +85,24 @@ composer require  "alicfeng/laravel-helper=^1.0.0" -vvv
   }
   
   ## BaseHelloService
-  class BaseHelloService extends BaseHelperService {}
+  class BaseHelloService {
+      /**
+       * @var ResponseHelper
+       */
+      protected $rspHelper;
+  
+      public function __construct()
+      {
+          $this->rspHelper = app(ResponseHelper::class);
+      }
+  }
   
   ## HelloService 
   class HelloService extends BaseHelloService {
+      public function __construct()
+    {
+          parent::__construct();
+    }
       public function package(string $name = '')
       {
           $codeEnum = [1000, 'success']; // this should define in app/Enum/CodeEnum.php
@@ -94,13 +110,13 @@ composer require  "alicfeng/laravel-helper=^1.0.0" -vvv
               'name'   => $name,
               'age'    => 24,
           ];
-          return $this->result($codeEnum, $result);
+          return $this->rspHelper->result($codeEnum, $result);
       }
   }
   ```
-
+  
   Request Result
-
+  
   ```shell
   ➜ curl -s "https://dev.samego.com/api/package?name=alicfeng" | jq .
   {

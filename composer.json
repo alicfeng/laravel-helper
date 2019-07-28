@@ -29,7 +29,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "@stable",
-    "laravel/framework": "5.5.*",
+    "laravel/framework": "5.8.*",
     "composer/composer": "^1.8",
     "orchestra/testbench": "^3.5"
   },
