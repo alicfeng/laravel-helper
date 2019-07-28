@@ -21,8 +21,14 @@ return [
             'password' => '1234qwer',
         ],
 
-        // log level
-        'log_level' => 'notice'
+        /*Package format*/
+        'format' => 'json',
+
+        /*Log*/
+        'log'    => [
+            'log'   => true,
+            'level' => 'notice'
+        ],
     ],
 
     // debug model setting

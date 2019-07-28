@@ -90,6 +90,13 @@ class ResponseHelper
      */
     protected $log_level = 'notice';
 
+    public function __construct()
+    {
+        $this->log       = config('helper.package.log.log', true);
+        $this->log_level = config('helper.package.log.level', 'notice');
+        $this->format    = config('helper.package.format', 'json');
+    }
+
     /**
      * @functionName set http header
      * @description  setting http header
@@ -171,7 +178,7 @@ class ResponseHelper
             $package[Arr::get($structure, 'data', 'data')] = $this->data->toArray();
         }
 
-        $this->response = call_user_func([self::class, $this->format . 'Format'], $package);
+        $this->response = call_user_func([self::class, $this->format.'Format'], $package);
 
         unset($package, $structure);
 
@@ -250,7 +257,7 @@ class ResponseHelper
         $this->log = $flag;
 
         if (null === $level) {
-            $this->log_level = config('helper.package.log_level', 'notice');
+            $this->log_level = config('helper.package.log.level', 'notice');
         }
 
         return $this;
@@ -270,7 +277,8 @@ class ResponseHelper
     public function result(
         array $codeEnum, $data = '',
         int $status_code = 200, array $headers = []
-    ) {
+    )
+    {
         return $this
             ->setStatusCode($status_code)
             ->setHeaders($headers)
