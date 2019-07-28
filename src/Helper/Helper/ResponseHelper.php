@@ -9,7 +9,6 @@
 
 namespace AlicFeng\Helper\Helper;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Log;
 use Spatie\ArrayToXml\ArrayToXml;
@@ -90,11 +89,19 @@ class ResponseHelper
      */
     protected $log_level = 'notice';
 
+    /**
+     * helper debug.
+     *
+     * @var bool
+     */
+    protected $debug = false;
+
     public function __construct()
     {
         $this->log       = config('helper.package.log.log', true);
         $this->log_level = config('helper.package.log.level', 'notice');
         $this->format    = config('helper.package.format', 'json');
+        $this->debug     = config('helper.debug', false);
     }
 
     /**
@@ -166,23 +173,30 @@ class ResponseHelper
      */
     private function generate()
     {
+        // build package structure
         $structure = config('helper.package.structure', []);
-
-        $package = [
+        $package   = [
             Arr::get($structure, 'code', 'code')       => $this->code,
             Arr::get($structure, 'message', 'message') => $this->message,
             Arr::get($structure, 'data', 'data')       => $this->data,
         ];
 
-        if ($this->data instanceof Arrayable) {
-            $package[Arr::get($structure, 'data', 'data')] = $this->data->toArray();
+        // debug meta message
+        if (true === $this->debug) {
+            $package['debug'] = [
+                'runtime' => DateTimeHelper::msectime() - (int)(LARAVEL_START * 1000).' ms',
+                'length'  => mb_strlen(call_user_func([self::class, $this->format.'Format'], $package)).' byte',
+            ];
         }
 
+        // translate package | json or xml
         $this->response = call_user_func([self::class, $this->format.'Format'], $package);
 
+        // unset useless vars
         unset($package, $structure);
 
-        if ($this->log) {
+        // response to print log
+        if (true === $this->log) {
             call_user_func([Log::class, $this->log_level], $this->response);
         }
 
