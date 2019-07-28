@@ -19,7 +19,7 @@ To install through composer, simply put the following in your `composer.json` fi
 ```json
 {
     "require": {
-        "alicfeng/laravel-helper": "^1..0"
+        "alicfeng/laravel-helper": "^1.1.0"
     }
 }
 ```
