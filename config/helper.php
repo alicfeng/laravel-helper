@@ -22,12 +22,22 @@ return [
         ],
 
         /*Package format*/
-        'format' => 'json',
+        'format'    => 'json',
 
         /*Log*/
-        'log'    => [
+        'log'       => [
             'log'   => true,
             'level' => 'notice'
+        ],
+    ],
+
+    //  about log setting
+    'log'     => [
+        'extra_field' => [
+            'runtime_file'   => true,
+            'memory_message' => true,
+            'web_message'    => true,
+            'process_id'     => true,
         ],
     ],
 
