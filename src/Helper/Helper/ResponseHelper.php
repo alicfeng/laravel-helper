@@ -184,13 +184,13 @@ class ResponseHelper
         // debug meta message
         if (true === $this->debug) {
             $package['debug'] = [
-                'runtime' => DateTimeHelper::msectime() - (int)(LARAVEL_START * 1000).' ms',
-                'length'  => mb_strlen(call_user_func([self::class, $this->format.'Format'], $package)).' byte',
+                'runtime' => DateTimeHelper::msectime() - (int) (LARAVEL_START * 1000) . ' ms',
+                'length'  => mb_strlen(call_user_func([self::class, $this->format . 'Format'], $package)) . ' byte',
             ];
         }
 
         // translate package | json or xml
-        $this->response = call_user_func([self::class, $this->format.'Format'], $package);
+        $this->response = call_user_func([self::class, $this->format . 'Format'], $package);
 
         // unset useless vars
         unset($package, $structure);
@@ -291,8 +291,7 @@ class ResponseHelper
     public function result(
         array $codeEnum, $data = '',
         int $status_code = 200, array $headers = []
-    )
-    {
+    ) {
         return $this
             ->setStatusCode($status_code)
             ->setHeaders($headers)

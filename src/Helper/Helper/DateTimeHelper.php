@@ -21,9 +21,4 @@ class DateTimeHelper
     {
         return (int) (microtime(true) * 1000);
     }
-
-    public function __call($name, $arguments)
-    {
-        return call_user_func([self::class, $name], $arguments);
-    }
 }
