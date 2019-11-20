@@ -96,6 +96,13 @@ class ResponseHelper
      */
     protected $debug = false;
 
+    /**
+     * helper transform_class.
+     *
+     * @var null
+     */
+    protected $transform_class = null;
+
     public function __construct()
     {
         $this->log       = config('helper.package.log.log', true);
@@ -173,6 +180,11 @@ class ResponseHelper
      */
     private function generate()
     {
+        // package.data transform
+        if (null !== $this->transform_class) {
+            $this->data = app($this->transform_class)->transfrom($this->data);
+        }
+
         // build package structure
         $structure = config('helper.package.structure', []);
         $package   = [
@@ -273,6 +285,23 @@ class ResponseHelper
         if (null === $level) {
             $this->log_level = config('helper.package.log.level', 'notice');
         }
+
+        return $this;
+    }
+
+    /**
+     * @function    function
+     * @description describe ...
+     *
+     * @param string $transform_class
+     *
+     * @author      alicfeng
+     *
+     * @return self $this
+     */
+    public function transform(string $transform_class)
+    {
+        $this->transform_class = $transform_class;
 
         return $this;
     }

@@ -12,7 +12,7 @@ Laravel-helper Component is a simple package that has been designed to help you 
 ```json
 {
     "require": {
-        "alicfeng/laravel-helper": "^1.1.1"
+        "alicfeng/laravel-helper": "^1.1.2"
     }
 }
 ```
@@ -25,7 +25,7 @@ composer require alicfeng/laravel-helper:v1.1.1 -vvv
 
 
 
-## Configurate
+## Configuration
 
 #### Configure ServiceProvider
 
@@ -121,7 +121,7 @@ return [
       }
       public function package()
       {
-        	$name = request('name','');
+          $name = request('name','');
           return $this->helloService->package($name);
       }
   }
@@ -142,9 +142,9 @@ return [
   ## HelloService 
   class HelloService extends BaseHelloService {
       public function __construct()
-    {
+      {
           parent::__construct();
-    }
+      }
       public function package(string $name = '')
       {
           $codeEnum = [1000, 'success']; // this should define in app/Enum/CodeEnum.php
@@ -152,6 +152,7 @@ return [
               'name'   => $name,
               'age'    => 24,
           ];
+          // return $this->rspHelper->transform(DemoTransform::class)->result($codeEnum, $result);
           return $this->rspHelper->result($codeEnum, $result);
       }
   }
@@ -218,7 +219,7 @@ return [
 
 ###### display log content format
 
-```ini
+```
 [2019-08-20 23:36:37.310839] local.INFO: push cash {"user_id":9510,"cash":"52.00"}
 {"memory_usage":"14 MB","memory_peak_usage":"14 MB","runtime_file":{"file":"/Users/alicfeng/tutorial/github/tmp/demo/app/Console/Commands/AlicFeng.php:69","function":"App\\Console\\Commands\\AlicFeng->handle"}}
 
@@ -286,4 +287,3 @@ LogHelper::warning('logout failed', ['user_id' => 8888]);
   DateTimeHelper::msectime()
   ```
 
-  

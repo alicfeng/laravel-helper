@@ -16,7 +16,7 @@ use Monolog\Processor\WebProcessor;
 
 class LogEnhancer
 {
-    public function __invoke($logger)
+    public function __invoke(array $logger)
     {
         foreach ($logger->getHandlers() as $handler) {
             $handler->pushProcessor(new PsrLogMessageProcessor());

@@ -13,7 +13,7 @@ use Monolog\Processor\ProcessorInterface;
 
 class RuntimeFileProcessor implements ProcessorInterface
 {
-    public function __invoke($record)
+    public function __invoke(array $record)
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
