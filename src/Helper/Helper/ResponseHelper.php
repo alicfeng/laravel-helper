@@ -153,8 +153,27 @@ class ResponseHelper
     {
         $this->code    = $codeEnum[0];
         $this->message = end($codeEnum);
+        if (true === config('helper.translate.model')) {
+            $this->message = $this->translate($this->message);
+        }
 
         return $this;
+    }
+
+    /**
+     * @function    translate
+     * @description translate
+     *
+     * @param mixed $message translate
+     *
+     * @return mixed
+     *
+     * @author      AlicFeng
+     * @datatime    19-11-25 下午9:15
+     */
+    private function translate($message)
+    {
+        return call_user_func([config('helper.translate.instance'), 'translate'], $message);
     }
 
     /**
@@ -290,14 +309,14 @@ class ResponseHelper
     }
 
     /**
-     * @function    function
-     * @description describe ...
+     * @function    transform
+     * @description transform
      *
      * @param string $transform_class
      *
-     * @author      alicfeng
-     *
      * @return self $this
+     *
+     * @author      alicfeng
      */
     public function transform(string $transform_class)
     {

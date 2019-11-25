@@ -1,9 +1,12 @@
 <?php
 
-/**
- * laravel-helper plugin configuration File
- * About Package Setting
+/*
+ * What samego team is that is 'one thing, a team, work together'
+ * Value comes from technology, technology comes from sharing~
+ * https://github.com/alicfeng/laravel-helper
+ * AlicFeng | a@samego.com
  */
+
 return [
     // about package setting
     'package' => [
@@ -27,11 +30,11 @@ return [
         /*Log*/
         'log'       => [
             'log'   => true,
-            'level' => 'notice'
+            'level' => 'notice',
         ],
     ],
 
-    //  about log setting
+    // about log setting
     'log'     => [
         'extra_field' => [
             'runtime_file'   => true,
@@ -39,6 +42,12 @@ return [
             'web_message'    => false,
             'process_id'     => false,
         ],
+    ],
+
+    // translate
+    'translate' => [
+        'model'     => true,
+        'instance'  => \AlicFeng\Helper\Translate\Translation::class,
     ],
 
     // debug model setting
