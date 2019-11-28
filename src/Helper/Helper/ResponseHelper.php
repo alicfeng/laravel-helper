@@ -119,9 +119,9 @@ class ResponseHelper
      *
      * @return ResponseHelper $this
      */
-    private function setHeaders(array $headers)
+    private function setHeaders(array $headers): self
     {
-        $this->headers = $headers;
+        $this->headers = array_merge(config('helper.package.header'), $headers);
 
         return $this;
     }
@@ -134,7 +134,7 @@ class ResponseHelper
      *
      * @return $this
      */
-    private function setData($data)
+    private function setData($data): self
     {
         $this->data = $data;
 
@@ -149,7 +149,7 @@ class ResponseHelper
      *
      * @return self $this
      */
-    private function setCodeEnum(array $codeEnum)
+    private function setCodeEnum(array $codeEnum): self
     {
         $this->code    = $codeEnum[0];
         $this->message = end($codeEnum);
@@ -184,7 +184,7 @@ class ResponseHelper
      *
      * @return $this
      */
-    private function setStatusCode(int $status_code)
+    private function setStatusCode(int $status_code): self
     {
         $this->status_code = $status_code;
 
@@ -268,7 +268,7 @@ class ResponseHelper
      *
      * @return $this
      */
-    public function json()
+    public function json(): self
     {
         $this->format = self::FORMATS[0];
 
@@ -281,7 +281,7 @@ class ResponseHelper
      *
      * @return $this
      */
-    public function xml()
+    public function xml(): self
     {
         $this->format = self::FORMATS[1];
 
@@ -297,7 +297,7 @@ class ResponseHelper
      *
      * @return self $this
      */
-    public function log(bool $flag, $level = null)
+    public function log(bool $flag, $level = null): self
     {
         $this->log = $flag;
 
@@ -318,7 +318,7 @@ class ResponseHelper
      *
      * @author      alicfeng
      */
-    public function transform(string $transform_class)
+    public function transform(string $transform_class): self
     {
         $this->transform_class = $transform_class;
 

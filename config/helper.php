@@ -17,6 +17,11 @@ return [
             'data'    => 'data',
         ],
 
+        // Default Header simple:Content-Type => application/json
+        'header'=>[
+
+        ],
+
         /*Package encrypt Setting*/
         'crypt'     => [
             'instance' => \AlicFeng\Helper\Crypt\HelperCryptService::class,
