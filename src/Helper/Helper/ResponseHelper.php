@@ -49,6 +49,11 @@ class ResponseHelper
     protected $message = null;
 
     /**
+     * @var string ext message
+     */
+    protected $ext_msg = '';
+
+    /**
      * package structure data dom.
      *
      * @var null
@@ -121,7 +126,7 @@ class ResponseHelper
      */
     private function setHeaders(array $headers): self
     {
-        $this->headers = array_merge(config('helper.package.header'), $headers);
+        $this->headers = array_merge(config('helper.package.header', []), $headers);
 
         return $this;
     }
@@ -153,9 +158,14 @@ class ResponseHelper
     {
         $this->code    = $codeEnum[0];
         $this->message = end($codeEnum);
+
+        // translate
         if (true === config('helper.translate.model')) {
             $this->message = $this->translate($this->message);
         }
+
+        // splice ext message
+        $this->message .= $this->ext_msg;
 
         return $this;
     }
@@ -321,6 +331,23 @@ class ResponseHelper
     public function transform(string $transform_class): self
     {
         $this->transform_class = $transform_class;
+
+        return $this;
+    }
+
+    /**
+     * @function    set ext message
+     * @description optional to setting
+     *
+     * @param string $ext_msg
+     *
+     * @return ResponseHelper
+     *
+     * @author      alicfeng
+     */
+    public function extMsg(string $ext_msg): self
+    {
+        $this->ext_msg = $ext_msg;
 
         return $this;
     }

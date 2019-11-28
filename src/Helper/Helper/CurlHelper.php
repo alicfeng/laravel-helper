@@ -9,46 +9,105 @@
 
 namespace AlicFeng\Helper\Helper;
 
-use Illuminate\Support\Facades\Response;
+use AlicFeng\Helper\Code\HttpMethod;
 
 class CurlHelper
 {
-    const POST   = 'POST';
-    const GET    = 'GET';
-    const DELETE = 'DELETE';
-    const PUT    = 'PUT';
-
-    public static function post($url, array $parameters = [], array $headers = [], bool $json = true)
+    /**
+     * @function    post request
+     * @description post request
+     *
+     * @param string $url        url
+     * @param array  $parameters parameter
+     * @param array  $headers    header
+     * @param bool   $json       is application/json format
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     *
+     * @author      AlicFeng
+     */
+    public static function post(string $url, array $parameters = [], array $headers = [], bool $json = true)
     {
-        return self::common(self::POST, $url, $parameters, $headers, $json);
+        return self::request(HttpMethod::POST, $url, $parameters, $headers, $json);
     }
 
-    public static function delete($url, array $parameters = [], array $headers = [], bool $json = true)
+    /**
+     * @function    delete request
+     * @description delete request
+     *
+     * @param string $url        url
+     * @param array  $parameters parameter
+     * @param array  $headers    header
+     * @param bool   $json       is application/json format
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     *
+     * @author      AlicFeng
+     */
+    public static function delete(string $url, array $parameters = [], array $headers = [], bool $json = true)
     {
-        return self::common(self::DELETE, $url, $parameters, $headers, $json);
+        return self::request(HttpMethod::DELETE, $url, $parameters, $headers, $json);
     }
 
-    public static function get($url, array $parameters = [], array $headers = [])
+    /**
+     * @function    get request
+     * @description get request
+     *
+     * @param string $url        url
+     * @param array  $parameters parameter
+     * @param array  $headers    header
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     *
+     * @author      AlicFeng
+     */
+    public static function get(string $url, array $parameters = [], array $headers = [])
     {
         if ($query = http_build_query($parameters)) {
             $url .= '?' . $query;
         }
-        $request = self::request($url, $headers, false);
-        curl_setopt($request, CURLOPT_CUSTOMREQUEST, self::GET);
 
-        return self::execute($request);
+        return self::request(HttpMethod::GET, $url, $headers);
     }
 
-    private static function common($method, $url, array $parameters = [], array $headers = [], bool $json = true)
+    /**
+     * @function    request common
+     * @description request common
+     *
+     * @param string $method     request method
+     * @param string $url        url
+     * @param array  $parameters parameter
+     * @param array  $headers    header
+     * @param bool   $json       is application/json format
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     *
+     * @author      AlicFeng
+     */
+    public static function request(string $method, $url, array $parameters = [], array $headers = [], bool $json = true)
     {
-        $request = self::request($url, $headers, $json);
+        $request = self::prepare($url, $headers, $json);
         curl_setopt($request, CURLOPT_CUSTOMREQUEST, $method);
         self::parameters($request, $parameters, $json);
 
-        return self::execute($request);
+        $body = curl_exec($request);
+        $info = curl_getinfo($request);
+        curl_close($request);
+
+        return response((string) $body, $info['http_code'] ?? 500);
     }
 
-    private static function parameters($request, array $parameters = [], bool $json = true)
+    /**
+     * @function    parameters handler
+     * @description parameters handler
+     *
+     * @param false|resource $request    request handler
+     * @param array          $parameters params
+     * @param bool           $json       is json
+     *
+     * @author      AlicFeng
+     */
+    private static function parameters($request, array $parameters = [], bool $json = true): void
     {
         if (0 === count($parameters)) {
             return;
@@ -60,7 +119,19 @@ class CurlHelper
         }
     }
 
-    private static function request($url, array $headers = [], string $content_type = 'application/json; charset=utf-8')
+    /**
+     * @function    prepare
+     * @description prepare curl
+     *
+     * @param        $url
+     * @param array  $headers
+     * @param string $content_type
+     *
+     * @return false|resource
+     *
+     * @author      AlicFeng
+     */
+    private static function prepare(string $url, array $headers = [], string $content_type = 'application/json; charset=utf-8')
     {
         $request   = curl_init();
         $headers[] = 'Content-Type: ' . $content_type;
@@ -71,14 +142,5 @@ class CurlHelper
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, true);
 
         return $request;
-    }
-
-    private static function execute($request)
-    {
-        $body = curl_exec($request);
-        $info = curl_getinfo($request);
-        curl_close($request);
-
-        return new Response((string) $body, $info['http_code'] ?? 500, []);
     }
 }

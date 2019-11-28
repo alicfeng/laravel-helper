@@ -16,8 +16,7 @@ class ResponseTest extends TestCase
         $message   = 'success';
         $data      = ['name' => 'alicfeng'];
         $helper    = new ResponseHelper();
-        $json      = $helper
-            ->result([$code, $message], $data);
+        $json      = $helper->result([$code, $message], $data);
         $structure = config('helper.package.structure');
         $this->assertEquals($json, response(json_encode([$structure['code'] => $code, $structure['message'] => $message, $structure['data'] => $data], JSON_UNESCAPED_UNICODE)));
     }
