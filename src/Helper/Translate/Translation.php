@@ -9,17 +9,24 @@
 
 namespace AlicFeng\Helper\Translate;
 
-class Translation implements TranslationIterface
+use Illuminate\Support\Facades\App;
+
+class Translation implements TranslationInterface
 {
     /**
-     * Translate the given message.
+     * @function    translate
+     * @description translate
      *
-     * @param string $key
+     * @param mixed|null $key     translate key
+     * @param mixed|null $replace replace key
      *
-     * @return \Illuminate\Contracts\Translation\Translator|string|array|null
+     * @return mixed
+     *
+     * @author      AlicFeng
+     * @datatime    19-11-25 下午9:17
      */
-    public static function translate($key = null)
+    public static function translate($key = null, $replace = [])
     {
-        return trans($key, [], 'zh');
+        return trans($key, $replace, App::getLocale()) ?? $key;
     }
 }

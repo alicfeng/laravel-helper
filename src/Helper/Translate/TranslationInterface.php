@@ -9,7 +9,7 @@
 
 namespace AlicFeng\Helper\Translate;
 
-interface TranslationIterface
+interface TranslationInterface
 {
     /**
      * @function    translate
