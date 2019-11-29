@@ -374,18 +374,4 @@ class ResponseHelper
             ->setData($data)
             ->generate();
     }
-
-    /**
-     * @function    response nothing
-     * @description Respond with a no content response.
-     *
-     * @param int   $status_code
-     * @param array $headers
-     *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
-    public function noContent($status_code = 204, $headers = [])
-    {
-        return response('', $status_code, $headers);
-    }
 }

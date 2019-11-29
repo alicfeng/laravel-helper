@@ -9,18 +9,16 @@ Laravel-helper Component is a simple package that has been designed to help you 
 
 #### install by composer.json
 
-```json
-{
-    "require": {
-        "alicfeng/laravel-helper": "^1.1.2"
-    }
+```
+"require": {
+    "alicfeng/laravel-helper": "^1.1.6"
 }
 ```
 
 #### install by cli
 
 ```shell
-composer require alicfeng/laravel-helper:v1.1.1 -vvv
+composer require alicfeng/laravel-helper:v1.1.6 -vvv
 ```
 
 
@@ -57,6 +55,11 @@ return [
             'data'    => 'data',
         ],
 
+        // Default Header simple:Content-Type => application/json
+        'header'=>[
+
+        ],
+
         /*Package encrypt Setting*/
         'crypt'     => [
             'instance' => \AlicFeng\Helper\Crypt\HelperCryptService::class,
@@ -70,11 +73,11 @@ return [
         /*Log*/
         'log'       => [
             'log'   => true,
-            'level' => 'notice'
+            'level' => 'notice',
         ],
     ],
 
-    //  about log setting
+    // about log setting
     'log'     => [
         'extra_field' => [
             'runtime_file'   => true,
@@ -84,9 +87,16 @@ return [
         ],
     ],
 
+    // translate
+    'translate' => [
+        'model'     => true,
+        'instance'  => \AlicFeng\Helper\Translate\Translation::class,
+    ],
+
     // debug model setting
     'debug'   => false,
 ];
+
 ```
 
 
@@ -125,22 +135,9 @@ return [
           return $this->helloService->package($name);
       }
   }
-  
-  ## BaseHelloService
-  class BaseHelloService {
-      /**
-       * @var ResponseHelper
-       */
-      protected $rspHelper;
-  
-      public function __construct()
-      {
-          $this->rspHelper = app(ResponseHelper::class);
-      }
-  }
-  
+   
   ## HelloService 
-  class HelloService extends BaseHelloService {
+  class HelloService extends HelperServiceAbstract {
       public function __construct()
       {
           parent::__construct();
@@ -171,8 +168,6 @@ return [
     }
   }
   ```
-
-
 
 - Response Package Encrypt By Middleware
 
@@ -272,10 +267,15 @@ LogHelper::warning('logout failed', ['user_id' => 8888]);
 
 
 #### CurlHelper
+```php
+/**
+// \Symfony\Component\HttpFoundation\Response
+$response = CurlHelper::get(...);
+$response = CurlHelper::post(...);
+$response = CurlHelper::put(...);
+$response = CurlHelper::delete(...);
 
-> 完善中
-
-
+```
 
 #### DateTimeHelper
 
