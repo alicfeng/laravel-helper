@@ -1,1 +1,0 @@
-C:37:"PHPUnit\Runner\DefaultTestResultCache":214:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:3:{s:50:"Tests\Feature\ResponseTest::testFormatJsonResponse";d:0.288;s:41:"Tests\Unit\ControllerTest::testSafeFilter";d:0.006;s:31:"Tests\Unit\CryptTest::testCrypt";d:0.008;}}}

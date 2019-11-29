@@ -11,14 +11,14 @@ Laravel-helper Component is a simple package that has been designed to help you 
 
 ```
 "require": {
-    "alicfeng/laravel-helper": "^1.1.6"
+    "alicfeng/laravel-helper": "^1.2.1"
 }
 ```
 
 #### install by cli
 
 ```shell
-composer require alicfeng/laravel-helper:v1.1.6 -vvv
+composer require alicfeng/laravel-helper:v1.2.1 -vvv
 ```
 
 
