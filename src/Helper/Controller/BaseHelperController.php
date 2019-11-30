@@ -22,9 +22,7 @@ class BaseHelperController extends Controller
 
     /**
      * @description Safely Filter Parameter Value
-     *
      * @param mixed $parameter value
-     *
      * @return mixed
      */
     public function safeFilter($parameter)

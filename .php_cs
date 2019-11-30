@@ -42,7 +42,25 @@ $rules = array(
             'try'
         ]
     ],// 空行换行必须在任何已配置的语句之前
-    'binary_operator_spaces'                     => ['default' => 'align_single_space'], //等号对齐、数字箭头符号对齐
+    'binary_operator_spaces'                     => [
+        'default' => 'align_single_space'
+    ], //等号对齐、数字箭头符号对齐
+    'align_multiline_comment'                    => [
+        'comment_type' => 'phpdocs_only'
+    ],
+    'lowercase_cast'                             => true,// 类型强制小写
+    'lowercase_constants'                        => true,// 常量为小写
+    'lowercase_static_reference'                 => true,// 静态调用为小写
+    'no_blank_lines_after_class_opening'         => true,
+    'phpdoc_separation'                          => false,// 不同注释部分按照单空行隔开
+    'phpdoc_single_line_var_spacing'             => true,
+    'phpdoc_indent'                              => true,
+    'phpdoc_align'=>[
+        'align'=>'vertical',
+        'tags'=>[
+            'param', 'throws', 'type', 'var'
+        ]
+    ]
 );
 
 return PhpCsFixer\Config::create()

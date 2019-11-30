@@ -14,7 +14,6 @@ class DateTimeHelper
     /**
      * @function    msectime
      * @description return current Unix timestamp with microseconds
-     *
      * @return int
      */
     public static function msectime()

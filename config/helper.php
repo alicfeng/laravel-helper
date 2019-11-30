@@ -9,7 +9,7 @@
 
 return [
     // about package setting
-    'package' => [
+    'package'   => [
         /*Response Package Structure*/
         'structure' => [
             'code'    => 'code',
@@ -18,7 +18,7 @@ return [
         ],
 
         // Default Header simple:Content-Type => application/json
-        'header'=>[
+        'header'    => [
 
         ],
 
@@ -40,7 +40,7 @@ return [
     ],
 
     // about log setting
-    'log'     => [
+    'log'       => [
         'extra_field' => [
             'runtime_file'   => true,
             'memory_message' => false,
@@ -51,10 +51,21 @@ return [
 
     // translate
     'translate' => [
-        'model'     => true,
-        'instance'  => \AlicFeng\Helper\Translate\Translation::class,
+        'model'    => true,
+        'instance' => \AlicFeng\Helper\Translate\Translation::class,
+    ],
+
+    // runtime model
+    'runtime'   => [
+        'trace' => [
+            'request'    => true,
+            'response'   => false,
+            'filter_uri' => [
+
+            ]
+        ],
     ],
 
     // debug model setting
-    'debug'   => false,
+    'debug'     => false,
 ];

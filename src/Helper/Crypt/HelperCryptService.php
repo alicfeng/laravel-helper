@@ -13,10 +13,8 @@ class HelperCryptService implements HelperCryptServiceInterface
 {
     /**
      * @description encrypt using openssl_encrypt
-     *
      * @param string $plaintext plaintext content
      * @param string $key       password
-     *
      * @return string
      */
     public static function encrypt(string $plaintext, $key = '')
@@ -30,10 +28,8 @@ class HelperCryptService implements HelperCryptServiceInterface
 
     /**
      * @description decrypt using openssl_decrypt
-     *
      * @param string $cipherText ciphertext content
      * @param string $key        password
-     *
      * @return string
      */
     public static function decrypt(string $cipherText, $key = '')
@@ -52,9 +48,7 @@ class HelperCryptService implements HelperCryptServiceInterface
      * '-' => '+'
      * '_' => '/'
      * 字符串长度%4的余数，补'='.
-     *
      * @param string $string
-     *
      * @return string
      */
     public static function urlsafe_b64decode($string)
@@ -73,9 +67,7 @@ class HelperCryptService implements HelperCryptServiceInterface
      * '+' => '-'
      * '/' => '_'
      * '=' => ''.
-     *
      * @param string $string
-     *
      * @return string
      */
     public static function urlsafe_b64encode($string)

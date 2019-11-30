@@ -16,14 +16,11 @@ class CurlHelper
     /**
      * @function    post request
      * @description post request
-     *
      * @param string $url        url
      * @param array  $parameters parameter
      * @param array  $headers    header
      * @param bool   $json       is application/json format
-     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     *
      * @author      AlicFeng
      */
     public static function post(string $url, array $parameters = [], array $headers = [], bool $json = true)
@@ -34,14 +31,11 @@ class CurlHelper
     /**
      * @function    delete request
      * @description delete request
-     *
      * @param string $url        url
      * @param array  $parameters parameter
      * @param array  $headers    header
      * @param bool   $json       is application/json format
-     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     *
      * @author      AlicFeng
      */
     public static function delete(string $url, array $parameters = [], array $headers = [], bool $json = true)
@@ -52,13 +46,10 @@ class CurlHelper
     /**
      * @function    get request
      * @description get request
-     *
      * @param string $url        url
      * @param array  $parameters parameter
      * @param array  $headers    header
-     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     *
      * @author      AlicFeng
      */
     public static function get(string $url, array $parameters = [], array $headers = [])
@@ -73,15 +64,12 @@ class CurlHelper
     /**
      * @function    request common
      * @description request common
-     *
      * @param string $method     request method
      * @param string $url        url
      * @param array  $parameters parameter
      * @param array  $headers    header
      * @param bool   $json       is application/json format
-     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     *
      * @author      AlicFeng
      */
     public static function request(string $method, $url, array $parameters = [], array $headers = [], bool $json = true)
@@ -100,11 +88,9 @@ class CurlHelper
     /**
      * @function    parameters handler
      * @description parameters handler
-     *
      * @param false|resource $request    request handler
      * @param array          $parameters params
      * @param bool           $json       is json
-     *
      * @author      AlicFeng
      */
     private static function parameters($request, array $parameters = [], bool $json = true): void
@@ -122,13 +108,10 @@ class CurlHelper
     /**
      * @function    prepare
      * @description prepare curl
-     *
      * @param        $url
      * @param array  $headers
      * @param string $content_type
-     *
      * @return false|resource
-     *
      * @author      AlicFeng
      */
     private static function prepare(string $url, array $headers = [], string $content_type = 'application/json; charset=utf-8')
