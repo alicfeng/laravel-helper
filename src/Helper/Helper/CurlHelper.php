@@ -74,7 +74,7 @@ class CurlHelper
      */
     public static function request(string $method, $url, array $parameters = [], array $headers = [], bool $json = true)
     {
-        $request = self::prepare($url, $headers, $json);
+        $request = self::prepare($url, $headers);
         curl_setopt($request, CURLOPT_CUSTOMREQUEST, $method);
         self::parameters($request, $parameters, $json);
 
