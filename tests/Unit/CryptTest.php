@@ -1,6 +1,10 @@
 <?php
-/**
- * Created by AlicFeng at 2019-06-08 21:09
+
+/*
+ * What samego team is that is 'one thing, a team, work together'
+ * Value comes from technology, technology comes from sharing~
+ * https://github.com/alicfeng/laravel-helper
+ * AlicFeng | a@samego.com
  */
 
 namespace Tests\Unit;

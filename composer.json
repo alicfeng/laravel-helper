@@ -40,5 +40,18 @@
     "ext-openssl": "*",
     "ext-gd": "*",
     "ext-curl": "*"
+  },
+  "scripts": {
+    "php-cs": [
+      "php-cs-fixer fix src",
+      "php-cs-fixer fix config",
+      "php-cs-fixer fix tests"
+    ]
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    }
   }
 }
