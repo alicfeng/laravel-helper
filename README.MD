@@ -5,27 +5,17 @@ Laravel-helper Component is a simple package that has been designed to help you 
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/alicfeng/laravel-helper.svg)](https://packagist.org/packages/alicfeng/laravel-helper) [![Total Downloads](https://poser.pugx.org/alicfeng/laravel-helper/d/total.svg)](https://packagist.org/packages/alicfeng/laravel-helper) [![Build Status](http://img.shields.io/travis/alicfeng/laravel-helper.svg)](https://travis-ci.org/alicfeng/laravel-helper) 
 
-## Install
+## Get started
 
-#### install by composer.json
-
-```
-"require": {
-    "alicfeng/laravel-helper": "^1.2.1"
-}
-```
-
-#### install by cli
+#### install
 
 ```shell
-composer require alicfeng/laravel-helper:v1.2.1 -vvv
+composer require alicfeng/laravel-helper:v1.2.3 -vvv
 ```
 
+#### config
 
-
-## Configuration
-
-#### Configure ServiceProvider
+###### app.php
 
 ```php
 'providers' => [
@@ -33,70 +23,77 @@ composer require alicfeng/laravel-helper:v1.2.1 -vvv
 ]
 ```
 
-#### Execute command on terminal
+###### public vendor
 
 ```php
 php artisan vendor:publish --provider="AlicFeng\Helper\ServiceProvider\HelperServiceProvider"
 ```
 
-#### Configuration file
+###### configuration
 
 > `config/helper.php`
 
 ```php
-<?php
-return [
-    // about package setting
-    'package' => [
-        /*Response Package Structure*/
-        'structure' => [
-            'code'    => 'code',
-            'message' => 'message',
-            'data'    => 'data',
-        ],
+// about package setting
+'package'   => [
+  /*Response Package Structure*/
+  'structure' => [
+    'code'    => 'code',
+    'message' => 'message',
+    'data'    => 'data',
+  ],
 
-        // Default Header simple:Content-Type => application/json
-        'header'=>[
+  // Default Header simple:Content-Type => application/json
+  'header'    => [
 
-        ],
+  ],
 
-        /*Package encrypt Setting*/
-        'crypt'     => [
-            'instance' => \AlicFeng\Helper\Crypt\HelperCryptService::class,
-            'method'   => 'aes-128-ecb',
-            'password' => '1234qwer',
-        ],
+  /*Package encrypt Setting*/
+  'crypt'     => [
+    'instance' => \AlicFeng\Helper\Crypt\HelperCryptService::class,
+    'method'   => 'aes-128-ecb',
+    'password' => '1234qwer',
+  ],
 
-        /*Package format*/
-        'format'    => 'json',
+  /*Package format (json | xml)*/
+  'format'    => 'json',
 
-        /*Log*/
-        'log'       => [
-            'log'   => true,
-            'level' => 'notice',
-        ],
-    ],
+  /*Log*/
+  'log'       => [
+    'log'   => true,
+    'level' => 'notice',
+  ],
+],
 
-    // about log setting
-    'log'     => [
-        'extra_field' => [
-            'runtime_file'   => true,
-            'memory_message' => false,
-            'web_message'    => false,
-            'process_id'     => false,
-        ],
-    ],
+// about log setting
+'log'       => [
+  'extra_field' => [
+    'runtime_file'   => true,
+    'memory_message' => false,
+    'web_message'    => false,
+    'process_id'     => false,
+  ],
+],
 
-    // translate
-    'translate' => [
-        'model'     => true,
-        'instance'  => \AlicFeng\Helper\Translate\Translation::class,
-    ],
+// translate
+'translate' => [
+  'model'    => true,
+  'instance' => \AlicFeng\Helper\Translate\Translation::class,
+],
 
-    // debug model setting
-    'debug'   => false,
-];
+// runtime model
+'runtime'   => [
+  'trace' => [
+    'request'    => true,
+    'response'   => false,
+    'filter_uri' => [
 
+    ]
+  ],
+],
+
+// debug model setting
+'debug'     => false,
 ```
 
 
@@ -121,22 +118,6 @@ return [
   Developers only care about the results of service processing, while the response structure is built by components.
 
   ```php
-  ## HelloController
-  class HelloController extends Controller
-  {
-      private $helloService;
-      public function __construct(HelloService $helloService)
-      {
-          $this->helloService = $helloService;
-      }
-      public function package()
-      {
-          $name = request('name','');
-          return $this->helloService->package($name);
-      }
-  }
-   
-  ## HelloService 
   class HelloService extends HelperServiceAbstract {
       public function __construct()
       {
@@ -168,7 +149,7 @@ return [
     }
   }
   ```
-
+  
 - Response Package Encrypt By Middleware
 
   > First register middle in Kernel 
@@ -207,8 +188,22 @@ return [
   > `config/helper.php` in `package.crypt.instance`
   >
   > have to implements `HelperCryptServiceInterface`
-  
-   
+
+ 
+
+#### CurlHelper
+```php
+/**
+*@return \Symfony\Component\HttpFoundation\Response
+*/
+$response = CurlHelper::get(...);
+$response = CurlHelper::post(...);
+$response = CurlHelper::put(...);
+$response = CurlHelper::delete(...);
+
+```
+
+
 
 #### LogHelper
 
@@ -265,17 +260,6 @@ LogHelper::warning('logout failed', ['user_id' => 8888]);
 ```
 
 
-
-#### CurlHelper
-```php
-/**
-// \Symfony\Component\HttpFoundation\Response
-$response = CurlHelper::get(...);
-$response = CurlHelper::post(...);
-$response = CurlHelper::put(...);
-$response = CurlHelper::delete(...);
-
-```
 
 #### DateTimeHelper
 

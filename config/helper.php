@@ -28,7 +28,7 @@ return [
             'password' => '1234qwer',
         ],
 
-        /*Package format*/
+        /*Package format (json | xml)*/
         'format'    => 'json',
 
         /*Log*/
