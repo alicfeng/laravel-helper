@@ -14,7 +14,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-abstract class FormRequest extends BaseFormRequest
+abstract class AbstractFormRequest extends BaseFormRequest
 {
     protected function failedValidation(Validator $validator)
     {
