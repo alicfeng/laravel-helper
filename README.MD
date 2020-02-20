@@ -10,7 +10,7 @@ Laravel-helper Component is a simple package that has been designed to help you 
 #### install
 
 ```shell
-composer require alicfeng/laravel-helper:v1.2.3 -vvv
+composer require alicfeng/laravel-helper:v1.2.4 -vvv
 ```
 
 #### config
@@ -18,14 +18,16 @@ composer require alicfeng/laravel-helper:v1.2.3 -vvv
 ###### app.php
 
 ```php
-'providers' => [
-   AlicFeng\Helper\ServiceProvider\HelperServiceProvider::class,
-]
+[
+    'providers' => [
+       AlicFeng\Helper\ServiceProvider\HelperServiceProvider::class,
+    ]
+];
 ```
 
 ###### public vendor
 
-```php
+```shell
 php artisan vendor:publish --provider="AlicFeng\Helper\ServiceProvider\HelperServiceProvider"
 ```
 
@@ -35,65 +37,67 @@ php artisan vendor:publish --provider="AlicFeng\Helper\ServiceProvider\HelperSer
 
 ```php
 // about package setting
-'package'   => [
-  /*Response Package Structure*/
-  'structure' => [
-    'code'    => 'code',
-    'message' => 'message',
-    'data'    => 'data',
-  ],
-
-  // Default Header simple:Content-Type => application/json
-  'header'    => [
-
-  ],
-
-  /*Package encrypt Setting*/
-  'crypt'     => [
-    'instance' => \AlicFeng\Helper\Crypt\HelperCryptService::class,
-    'method'   => 'aes-128-ecb',
-    'password' => '1234qwer',
-  ],
-
-  /*Package format (json | xml)*/
-  'format'    => 'json',
-
-  /*Log*/
-  'log'       => [
-    'log'   => true,
-    'level' => 'notice',
-  ],
-],
-
-// about log setting
-'log'       => [
-  'extra_field' => [
-    'runtime_file'   => true,
-    'memory_message' => false,
-    'web_message'    => false,
-    'process_id'     => false,
-  ],
-],
-
-// translate
-'translate' => [
-  'model'    => true,
-  'instance' => \AlicFeng\Helper\Translate\Translation::class,
-],
-
-// runtime model
-'runtime'   => [
-  'trace' => [
-    'request'    => true,
-    'response'   => false,
-    'filter_uri' => [
-
-    ]
-  ],
-],
-
-// debug model setting
-'debug'     => false,
+return [
+    'package'   => [
+      /*Response Package Structure*/
+      'structure' => [
+        'code'    => 'code',
+        'message' => 'message',
+        'data'    => 'data',
+      ],
+    
+      // Default Header simple:Content-Type => application/json
+      'header'    => [
+    
+      ],
+    
+      /*Package encrypt Setting*/
+      'crypt'     => [
+        'instance' => \AlicFeng\Helper\Crypt\HelperCryptService::class,
+        'method'   => 'aes-128-ecb',
+        'password' => '1234qwer',
+      ],
+    
+      /*Package format (json | xml)*/
+      'format'    => 'json',
+    
+      /*Log*/
+      'log'       => [
+        'log'   => true,
+        'level' => 'notice',
+      ],
+    ],
+    
+    // about log setting
+    'log'       => [
+      'extra_field' => [
+        'runtime_file'   => true,
+        'memory_message' => false,
+        'web_message'    => false,
+        'process_id'     => false,
+      ],
+    ],
+    
+    // translate
+    'translate' => [
+      'model'    => true,
+      'instance' => \AlicFeng\Helper\Translate\Translation::class,
+    ],
+    
+    // runtime model
+    'runtime'   => [
+      'trace' => [
+        'request'    => true,
+        'response'   => false,
+        'filter_uri' => [
+    
+        ]
+      ],
+    ],
+    
+    // debug model setting
+    'debug'     => false
+];
 ```
 
 

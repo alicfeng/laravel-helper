@@ -21,8 +21,6 @@ class CryptController extends BaseHelperController
 
     /**
      * HelperController constructor.
-     *
-     * @param CryptHelperService $cryptService
      */
     public function __construct(CryptHelperService $cryptService)
     {
@@ -38,8 +36,6 @@ class CryptController extends BaseHelperController
     }
 
     /**
-     * @param Request $request
-     *
      * @return string
      */
     public function decrypt(Request $request)

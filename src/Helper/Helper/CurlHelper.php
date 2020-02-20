@@ -108,9 +108,7 @@ class CurlHelper
     /**
      * @function    prepare
      * @description prepare curl
-     * @param        $url
-     * @param array  $headers
-     * @param string $content_type
+     * @param $url
      * @return false|resource
      * @author      AlicFeng
      */
