@@ -7,7 +7,7 @@
  * AlicFeng | a@samego.com
  */
 
-namespace App\Http\Requests;
+namespace AlicFeng\Helper\Request;
 
 use AlicFeng\Helper\Code\HttpCode;
 use Illuminate\Contracts\Validation\Validator;
