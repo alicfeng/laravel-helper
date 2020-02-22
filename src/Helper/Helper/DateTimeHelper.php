@@ -13,7 +13,7 @@ class DateTimeHelper
 {
     /**
      * @function    msectime
-     * @description return current Unix timestamp with microseconds
+     * @description return current unix timestamp with microseconds
      * @return int
      */
     public static function msectime()

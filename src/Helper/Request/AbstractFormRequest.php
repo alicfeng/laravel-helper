@@ -19,7 +19,12 @@ abstract class AbstractFormRequest extends BaseFormRequest
     protected function failedValidation(Validator $validator)
     {
         $structure = config('helper.package.structure');
+        $package   = [
+            $structure['code']    => HttpCode::HTTP_UNPROCESSABLE_ENTITY,
+            $structure['message'] => 'entity unprocessable',
+            $structure['data']    => $validator->errors(),
+        ];
 
-        throw (new HttpResponseException(response()->json([$structure['code']    => HttpCode::HTTP_UNPROCESSABLE_ENTITY, $structure['message'] => 'entity unprocessable', $structure['data']    => $validator->errors()], HttpCode::HTTP_UNPROCESSABLE_ENTITY)));
+        throw (new HttpResponseException(response()->json($package, HttpCode::HTTP_UNPROCESSABLE_ENTITY)));
     }
 }

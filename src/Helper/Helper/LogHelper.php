@@ -9,8 +9,36 @@
 
 namespace AlicFeng\Helper\Helper;
 
+use DB;
+use Exception;
 use Illuminate\Support\Facades\Log;
 
-class LogHelper extends Log
+class LogHelper
 {
+    /**
+     * @function    异常日志信息记录
+     * @description 异常日志信息记录
+     * @param string $event
+     * @author      AlicFeng
+     */
+    public static function exception(Exception $exception, $event = ''): void
+    {
+        Log::error($event);
+        Log::error('exception message : ' . $exception->getMessage());
+        Log::error('exception code    : ' . $exception->getCode());
+        Log::error('exception file    : ' . $exception->getFile());
+        Log::error('exception line    : ' . $exception->getLine());
+    }
+
+    /**
+     * @function    数据库事件监听
+     * @description 用于MySQL调用分析
+     * @author      AlicFeng
+     */
+    public static function databaseListener(): void
+    {
+        DB::listen(function ($query) {
+            Log::debug('databaseListener', [$query->sql, $query->bindings, $query->time]);
+        });
+    }
 }

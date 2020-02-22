@@ -16,12 +16,9 @@ class Translation implements TranslationInterface
     /**
      * @function    translate
      * @description translate
-     *
      * @param mixed|null $key     translate key
      * @param mixed|null $replace replace key
-     *
      * @return mixed
-     *
      * @author      AlicFeng
      * @datatime    19-11-25 下午9:17
      */

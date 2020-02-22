@@ -14,11 +14,8 @@ interface TranslationInterface
     /**
      * @function    translate
      * @description translate
-     *
      * @param mixed|null $key translate key
-     *
      * @return mixed
-     *
      * @author      AlicFeng
      * @datatime    19-11-25 下午9:17
      */

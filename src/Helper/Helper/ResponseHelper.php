@@ -9,6 +9,8 @@
 
 namespace AlicFeng\Helper\Helper;
 
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Log;
 use Spatie\ArrayToXml\ArrayToXml;
@@ -68,7 +70,6 @@ class ResponseHelper
      */
     private $response = '';
 
-    // plugin setting including log flag
     /**
      * response log flag
      * if true that printer log message
@@ -108,7 +109,6 @@ class ResponseHelper
     /**
      * @functionName set http header
      * @description  setting http header
-     * @param array $headers http header message
      * @return ResponseHelper $this
      */
     private function setHeaders(array $headers): self
@@ -181,7 +181,7 @@ class ResponseHelper
     /**
      * @function    generate the response
      * @description generate response package message
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return Response|ResponseFactory
      */
     private function generate()
     {
@@ -329,7 +329,7 @@ class ResponseHelper
      * @param string $data        package.data
      * @param int    $status_code http.status_code
      * @param array  $headers     http.headers
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return Response|ResponseFactory
      */
     public function result(
         array $codeEnum, $data = '',

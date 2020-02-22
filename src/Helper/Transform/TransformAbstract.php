@@ -14,14 +14,10 @@ abstract class TransformAbstract
     /**
      * @function    transform
      * @description transform package.data
-     *
      * @param mixed $data transform data
-     *
      * @return mixed
-     *
-     * @author      alicfeng
-     *
      * @return mixed
+     * @author      AlicFeng
      */
     public function transform($data)
     {

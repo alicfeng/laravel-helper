@@ -14,7 +14,7 @@ use Log;
 class CryptHelperService extends BaseHelperService
 {
     const SUCCESS = [1000, 'success'];
-    const FAIL    = [2000, 'fail'];
+    const FAILURE = [2000, 'failure'];
 
     public function decrypt(string $message)
     {
@@ -27,6 +27,6 @@ class CryptHelperService extends BaseHelperService
             Log::error($exception);
         }
 
-        return $this->rspHelper->result(self::FAIL, '', 200, []);
+        return $this->rspHelper->result(self::FAILURE, '', 200, []);
     }
 }

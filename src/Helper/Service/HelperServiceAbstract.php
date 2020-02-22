@@ -20,6 +20,6 @@ abstract class HelperServiceAbstract
 
     public function __construct()
     {
-        $this->rspHelper = app()->make(ResponseHelper::class);
+        $this->rspHelper = app(ResponseHelper::class);
     }
 }

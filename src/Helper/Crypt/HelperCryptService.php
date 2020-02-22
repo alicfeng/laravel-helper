@@ -38,9 +38,8 @@ class HelperCryptService implements HelperCryptServiceInterface
 
         $key       = substr(openssl_digest(openssl_digest($key, 'sha1', true), 'sha1', true), 0, 16);
         $cipherRaw = self::urlsafe_b64decode($cipherText);
-        $content   = openssl_decrypt($cipherRaw, $method, $key, OPENSSL_RAW_DATA);
 
-        return $content;
+        return openssl_decrypt($cipherRaw, $method, $key, OPENSSL_RAW_DATA);
     }
 
     /**

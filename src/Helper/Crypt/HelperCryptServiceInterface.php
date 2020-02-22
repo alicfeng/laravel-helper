@@ -11,7 +11,21 @@ namespace AlicFeng\Helper\Crypt;
 
 interface HelperCryptServiceInterface
 {
+    /**
+     * @function    encrypt
+     * @description encrypt handle
+     * @param string $key
+     * @return mixed
+     * @author      AlicFeng
+     */
     public static function encrypt(string $plaintext, $key = '');
 
+    /**
+     * @function    decrypt
+     * @description decrypt handle
+     * @param string $key
+     * @return mixed
+     * @author      AlicFeng
+     */
     public static function decrypt(string $cipherText, $key = '');
 }
