@@ -11,7 +11,7 @@ namespace AlicFeng\Helper\Service;
 
 use Log;
 
-class CryptHelperService extends BaseHelperService
+class CryptHelperService extends HelperServiceAbstract
 {
     const SUCCESS = [1000, 'success'];
     const FAILURE = [2000, 'failure'];

@@ -9,6 +9,7 @@
 
 namespace AlicFeng\Helper\ServiceProvider;
 
+use AlicFeng\Helper\Command\FrameworkCommand;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -31,7 +32,18 @@ class HelperServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../../../resources/views', 'helper');
         $this->publishConfig();
+        $this->registerCommand();
         $this->registerRoute();
+    }
+
+    public function registerCommand()
+    {
+        if ($this->app->runningInConsole()) {
+            $commands = [
+                FrameworkCommand::class,
+            ];
+            $this->commands($commands);
+        }
     }
 
     public function publishConfig()

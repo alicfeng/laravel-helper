@@ -10,7 +10,7 @@ Laravel-helper Component is a simple package that has been designed to help you 
 #### install
 
 ```shell
-composer require alicfeng/laravel-helper:v1.2.4 -vvv
+composer require alicfeng/laravel-helper:v1.3.0 -vvv
 ```
 
 #### config
