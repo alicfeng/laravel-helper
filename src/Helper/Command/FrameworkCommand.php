@@ -20,11 +20,13 @@ class FrameworkCommand extends Command
     const FOLDER_LIST = [
         'lib',
         'sbin',
+        'etc',
         'app/Constant',
         'app/Enum',
         'app/Helper',
         'app/Service',
         'app/Repository',
+        'app/Http/Transform',
     ];
 
     public function handle()
@@ -33,8 +35,8 @@ class FrameworkCommand extends Command
             if (false === File::exists($folder)) {
                 File::makeDirectory($folder, 0755, true);
                 File::put($folder . DIRECTORY_SEPARATOR . '.gitkeep', '');
+                echo "\033[33m make {$folder} successful \033[0m\n";
             }
-            echo "\033[33m make {$folder} successful \033[0m\n";
         }
     }
 }

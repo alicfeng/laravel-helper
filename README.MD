@@ -275,3 +275,28 @@ LogHelper::warning('logout failed', ['user_id' => 8888]);
   DateTimeHelper::msectime()
   ```
 
+
+
+#### Directory  Framework
+
+> Init project framework of directory by command
+
+```shell
+php artisan samego:framework
+```
+
+```
+# make folder list
+lib
+sbin
+etc
+app/Constant
+app/Enum
+app/Helper
+app/Service
+app/Repository
+app/Http/Transform
+```
+
+
+
