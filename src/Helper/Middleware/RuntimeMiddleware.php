@@ -42,7 +42,12 @@ class RuntimeMiddleware
         return $next($request);
     }
 
-    public function terminate(Request $request, Response $response)
+    /**
+     * @param Request  $request
+     * @param Response $response
+     * @author      AlicFeng
+     */
+    public function terminate($request, $response)
     {
         if (true === $this->response_trace && false === $this->filter_uri) {
             Log::notice('trace response message begin');
