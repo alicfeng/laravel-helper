@@ -18,10 +18,11 @@ class LogHelper
     /**
      * @function    异常日志信息记录
      * @description 异常日志信息记录
-     * @param string $event
+     * @param Exception $exception
+     * @param string    $event
      * @author      AlicFeng
      */
-    public static function exception(Exception $exception, $event = ''): void
+    public static function exception(Exception $exception, $event = '')
     {
         Log::error($event);
         Log::error('exception message : ' . $exception->getMessage());
@@ -35,8 +36,11 @@ class LogHelper
      * @description 用于MySQL调用分析
      * @author      AlicFeng
      */
-    public static function databaseListener(): void
+    public static function databaseListener()
     {
+        if (true === config('app.debug')) {
+            return;
+        }
         DB::listen(function ($query) {
             Log::debug('databaseListener', [$query->sql, $query->bindings, $query->time]);
         });
