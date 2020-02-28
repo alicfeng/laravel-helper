@@ -38,7 +38,7 @@ class LogHelper
      */
     public static function databaseListener()
     {
-        if (true === config('app.debug')) {
+        if (false === config('app.debug')) {
             return;
         }
         DB::listen(function ($query) {
