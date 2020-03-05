@@ -27,6 +27,8 @@ class FrameworkCommand extends Command
         'app/Service',
         'app/Repository',
         'app/Http/Transform',
+        'app/Facades',
+        'app/Contracts',
     ];
 
     public function handle()
