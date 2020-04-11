@@ -9,6 +9,7 @@
 
 namespace AlicFeng\Helper\Helper;
 
+use AlicFeng\Helper\Code\HttpCode;
 use AlicFeng\Helper\Code\HttpMethod;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
@@ -18,8 +19,11 @@ class CurlHelper
     /**
      * @function    post request
      * @description post request
+     * @param string $url
+     * @param array  $parameters
+     * @param array  $headers
+     * @param bool   $json
      * @return Response|ResponseFactory
-     * @author      AlicFeng
      */
     public static function post(string $url, array $parameters = [], array $headers = [], bool $json = true)
     {
@@ -29,8 +33,11 @@ class CurlHelper
     /**
      * @function    delete request
      * @description delete request
+     * @param string $url
+     * @param array  $parameters
+     * @param array  $headers
+     * @param bool   $json
      * @return Response|ResponseFactory
-     * @author      AlicFeng
      */
     public static function delete(string $url, array $parameters = [], array $headers = [], bool $json = true)
     {
@@ -40,8 +47,10 @@ class CurlHelper
     /**
      * @function    get request
      * @description get request
+     * @param string $url
+     * @param array  $parameters
+     * @param array  $headers
      * @return Response|ResponseFactory
-     * @author      AlicFeng
      */
     public static function get(string $url, array $parameters = [], array $headers = [])
     {
@@ -55,9 +64,11 @@ class CurlHelper
     /**
      * @function    request common
      * @description request common
-     * @param string $url
+     * @param string $method
+     * @param array  $parameters
+     * @param array  $headers
+     * @param bool   $json
      * @return Response|ResponseFactory
-     * @author      AlicFeng
      */
     public static function request(string $method, $url, array $parameters = [], array $headers = [], bool $json = true)
     {
@@ -65,18 +76,21 @@ class CurlHelper
         curl_setopt($request, CURLOPT_CUSTOMREQUEST, $method);
         self::parameters($request, $parameters, $json);
 
-        $body = curl_exec($request);
-        $info = curl_getinfo($request);
+        $body        = curl_exec($request);
+        $info        = curl_getinfo($request);
+        $header_size = curl_getinfo($request, CURLINFO_HEADER_SIZE);
+        $header      = substr($request, 0, $header_size);
         curl_close($request);
 
-        return response((string) $body, $info['http_code'] ?? 500);
+        return response((string) $body, $info['http_code'] ?? HttpCode::HTTP_INTERNAL_SERVER_ERROR, json_decode($header, true) ?? []);
     }
 
     /**
      * @function    parameters handler
      * @description parameters handler
      * @param false|resource $request
-     * @author      AlicFeng
+     * @param array          $parameters
+     * @param bool           $json
      */
     private static function parameters($request, array $parameters = [], bool $json = true): void
     {
@@ -93,8 +107,9 @@ class CurlHelper
     /**
      * @function    prepare
      * @description prepare curl
+     * @param string $url
+     * @param array  $headers
      * @return false|resource
-     * @author      AlicFeng
      */
     private static function prepare(string $url, array $headers = [])
     {

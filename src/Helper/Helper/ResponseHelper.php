@@ -109,6 +109,7 @@ class ResponseHelper
     /**
      * @functionName set http header
      * @description  setting http header
+     * @param array $headers
      * @return ResponseHelper $this
      */
     private function setHeaders(array $headers): self
@@ -169,6 +170,7 @@ class ResponseHelper
     /**
      * @function    setting status code
      * @description setting http.status_code
+     * @param int $status_code
      * @return $this
      */
     private function setStatusCode(int $status_code): self
@@ -223,6 +225,7 @@ class ResponseHelper
     /**
      * @function    jsonFormat
      * @description generate the response to json string
+     * @param array $message
      * @return false|string
      */
     private static function jsonFormat(array $message)
@@ -233,6 +236,7 @@ class ResponseHelper
     /**
      * @function    xmlFormat
      * @description generate the response to xml string
+     * @param array $message
      * @return string
      */
     private static function xmlFormat(array $message)
@@ -269,6 +273,7 @@ class ResponseHelper
     /**
      * @function    log
      * @description setting log configuration
+     * @param bool $flag
      * @param null $level
      * @return self $this
      */
@@ -286,6 +291,7 @@ class ResponseHelper
     /**
      * @function    transform
      * @description transform
+     * @param string $transform_class
      * @return self $this
      * @author      alicfeng
      */
@@ -299,6 +305,7 @@ class ResponseHelper
     /**
      * @function    set ext message
      * @description optional to setting
+     * @param string $ext_msg
      * @return ResponseHelper
      * @author      alicfeng
      */
@@ -312,6 +319,7 @@ class ResponseHelper
     /**
      * @function    statusCode
      * @description set http status code
+     * @param int $status_code
      * @return ResponseHelper
      * @author      AlicFeng
      */
