@@ -153,7 +153,26 @@ return [
     }
   }
   ```
+- Request Package Decrypt By Middleware
+
+  > First register middle in Kernel 
+  >
+  > Then add middleware in route file or __construct
+
+  `app/Http/Kernel.php`
+
+  ```php
+  protected $routeMiddleware = [
+    'package.decrypt'=>\AlicFeng\Helper\Middleware\DecryptMiddleware::class
+  ];
+  ```
   
+  `routes/api.php`
+
+  ```php
+  Route::middleware('package.decrypt')->get('/package', 'HelloController@package');
+  ```
+
 - Response Package Encrypt By Middleware
 
   > First register middle in Kernel 
