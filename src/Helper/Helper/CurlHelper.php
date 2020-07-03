@@ -78,11 +78,9 @@ class CurlHelper
 
         $body        = curl_exec($request);
         $info        = curl_getinfo($request);
-        $header_size = curl_getinfo($request, CURLINFO_HEADER_SIZE);
-        $header      = substr($request, 0, $header_size);
         curl_close($request);
 
-        return response((string) $body, $info['http_code'] ?? HttpCode::HTTP_INTERNAL_SERVER_ERROR, json_decode($header, true) ?? []);
+        return response((string) $body, $info['http_code'] ?? HttpCode::HTTP_INTERNAL_SERVER_ERROR, []);
     }
 
     /**
